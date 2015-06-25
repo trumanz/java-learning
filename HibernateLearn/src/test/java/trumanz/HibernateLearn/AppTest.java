@@ -1,5 +1,7 @@
 package trumanz.HibernateLearn;
 
+import org.apache.log4j.Logger;
+
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -18,6 +20,7 @@ public class AppTest
     public AppTest( String testName )
     {
         super( testName );
+        Logger.getLogger(AppTest.class).debug("test");
     }
 
     /**
