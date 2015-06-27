@@ -37,8 +37,6 @@ public class BindingTest
 	}
 
 	
-	
-	
 	@SuppressWarnings("deprecation")
 	@Test
 	public void test1LinkedBinding() {
@@ -65,19 +63,10 @@ public class BindingTest
 
 	}
 
-	
-	static class TestRunnable implements Runnable{
-			private Object obj;
-			public void run() {}
-			@Inject
-			public TestRunnable(@Named("ObjType") Object obj){ this.obj = obj;}
-			public Object getObj(){return obj;}
-     }
 		
 	@SuppressWarnings("deprecation")
 	@Test
 	public void test2BindAnnotation() {
-		
 		
 		Injector injector  = Guice.createInjector(new AbstractModule(){
 
@@ -90,7 +79,6 @@ public class BindingTest
 		});
 		Runnable runnalbe = injector.getInstance(Runnable.class);
 		Assert.assertEquals(runnalbe.getClass(), TestRunnable.class);
-	
 		Assert.assertEquals(((TestRunnable)runnalbe).getObj().getClass(), String.class);
 	}
 
@@ -151,7 +139,7 @@ public class BindingTest
 		Injector injector  = Guice.createInjector(new AbstractModule(){
 			@Override
 			protected void configure() {
-				bind(Float.class).toProvider( new Provider<Float>(){
+				bind(Object.class).toProvider( new Provider<Float>(){
 					public Float get() {
 						// TODO Auto-generated method stub
 						return new Float(8.88f);
@@ -160,8 +148,9 @@ public class BindingTest
 			}
 			
 		});
-		Float f = injector.getInstance(Float.class);
-		Assert.assertEquals(8.88f, f.floatValue(), 0.00002);
+		Object f = injector.getInstance(Object.class);
+		Assert.assertEquals(f.getClass(), Float.class);
+		Assert.assertEquals(8.88f, ((Float)f).floatValue(), 0.00002);
 	}
 
 	@Test
@@ -193,22 +182,20 @@ public class BindingTest
 		//TODO 
 	}
 	
+	@SuppressWarnings("deprecation")
 	@Test
 	public void test9JustInTimeBindgs(){
 		Injector injector  = Guice.createInjector(new AbstractModule(){
 			@Override
-			protected void configure() {
-				bind(SkinColor.class).to(RedSkinColor.class);
-			}
+			protected void configure() {}
 		});
 		
 		Animal  animal =  injector.getInstance(Animal.class);
-		Assert.assertEquals(animal.typeName(), "RedDog");
+		Assert.assertEquals(animal.getClass(), AnimalDog.class);
 		
-		
+		Plant plant = injector.getInstance(Plant.class);
+		Assert.assertEquals(plant.getClass(), PlantTree.class);
 		
 	}
-	
-	
 	
 }
