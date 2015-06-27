@@ -13,6 +13,7 @@ public class Dog implements Animal {
 		this.skinColor = skinColor;
 	}
 	
+	
 	public String typeName() {
 		return skinColor.color() + "Dog";
 	}
