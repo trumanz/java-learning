@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
+import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.Key;
 import com.google.inject.Provider;
@@ -64,23 +65,33 @@ public class BindingTest
 
 	}
 
+	
+	static class TestRunnable implements Runnable{
+			private Object obj;
+			public void run() {}
+			@Inject
+			public TestRunnable(@Named("ObjType") Object obj){ this.obj = obj;}
+			public Object getObj(){return obj;}
+     }
+		
 	@SuppressWarnings("deprecation")
 	@Test
 	public void test2BindAnnotation() {
+		
 		
 		Injector injector  = Guice.createInjector(new AbstractModule(){
 
 			@Override
 			protected void configure() {
-				// TODO Auto-generated method stub
-				bind(SkinColor.class).annotatedWith(Names.named("Black")).to(BlackSkinColor.class);
-				bind(SkinColor.class).annotatedWith(Names.named("Red")).to(RedSkinColor.class);
+				bind(Runnable.class).to(TestRunnable.class);
+				bind(Object.class).annotatedWith(Names.named("ObjType")).to(String.class);
 			}
 			
 		});
-		Animal animal = injector.getInstance(Pig.class);
-		Assert.assertEquals(animal.typeName(), "RedPig");
-
+		Runnable runnalbe = injector.getInstance(Runnable.class);
+		Assert.assertEquals(runnalbe.getClass(), TestRunnable.class);
+	
+		Assert.assertEquals(((TestRunnable)runnalbe).getObj().getClass(), String.class);
 	}
 
 	@Test
