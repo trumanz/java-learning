@@ -3,7 +3,8 @@ package trumanz.javaLearnJetty.EmbeddedJetty;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
-import junit.framework.Assert;
+
+import org.junit.Assert;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -11,6 +12,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BufferedHeader;
 import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.servlet.ServletHandler;
 import org.junit.Test;
 
 /**
@@ -48,6 +50,38 @@ public class HelloWorldTest
 		}
 		// server.dumpStdErr();
 	}
+	
+	@Test
+	public void testHelloServlet() throws Exception{
+		
+		Server server = new Server(8080);
+		ServletHandler handler = new ServletHandler();
+		server.setHandler(handler);
+		
+		handler.addServletWithMapping(HelloServlet.class, "/*");
+		
+		server.start();
+		
+		HttpClient client = new DefaultHttpClient();
+		try {
+			HttpGet mockRequest = new HttpGet("Http://localhost:8080");
+			HttpResponse mockrReponse = client.execute(mockRequest);
+			BufferedReader rd = new BufferedReader(new InputStreamReader(mockrReponse.getEntity().getContent()));
+
+			Assert.assertEquals("text", rd.readLine());
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			client.getConnectionManager().shutdown();
+			server.stop();
+			server.join();
+		}
+		
+	}
+	
+	
+
+	
 	
 	
 }

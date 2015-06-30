@@ -52,19 +52,28 @@
 
 
 		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-client</artifactId>
+			<version>${jettyVersion}</version>
+			<scope>test</scope>
+		</dependency>
+
+
+
+		<dependency>
 			<groupId>org.glassfish.jersey.core</groupId>
 			<artifactId>jersey-client</artifactId>
 			<version>${jerseyVersion}</version>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<dependency>
-	<groupId>org.apache.httpcomponents</groupId>
-	<artifactId>httpclient</artifactId>
-	<version>4.5</version>
-	<scope>test</scope>
-</dependency>
-		
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.5</version>
+			<scope>test</scope>
+		</dependency>
+
 
 		<dependency>
 			<groupId>junit</groupId>
