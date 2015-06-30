@@ -12,7 +12,7 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
-
+import org.glassfish.jersey.server.ServerProperties;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -52,6 +52,43 @@ public class JerseyRestTest {
 		Assert.assertEquals(200, response.getStatus());
 		Assert.assertEquals("nothing", content);
 		
+		server.stop();
+		
+		
+	}
+	
+	
+	@Test
+	public void restfulTest2() throws Exception {
+
+		///ambari-server style
+		ServletContextHandler root = new ServletContextHandler(ServletContextHandler.SESSIONS);
+		
+		ServletHolder sh = new ServletHolder(org.glassfish.jersey.servlet.ServletContainer.class);
+		//the pakckage taht contain application-specific resources and providers.,
+		sh.setInitParameter(ServerProperties.PROVIDER_PACKAGES, "trumanz.javaLearnJetty.EmbeddedJetty");
+		sh.setInitOrder(0);
+		
+		root.addServlet(sh,"/api/v1/*");
+		
+		Server server = new Server(8080);
+		server.setHandler(root);
+		
+		
+
+		
+		server.start();
+
+		Client client = ClientBuilder.newClient();
+
+		Response response = client.target("http://localhost:8080/api/v1/apis").request().get(Response.class);
+		
+		String content = response.readEntity(String.class);
+
+		Assert.assertEquals(200, response.getStatus());
+		Assert.assertEquals("nothing", content);
+		
+		server.start();
 	}
 
 }
