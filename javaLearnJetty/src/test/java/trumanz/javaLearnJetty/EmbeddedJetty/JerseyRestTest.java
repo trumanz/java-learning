@@ -1,6 +1,8 @@
 package trumanz.javaLearnJetty.EmbeddedJetty;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.client.Client;
@@ -24,6 +26,7 @@ public class JerseyRestTest {
 	public String listApis() {
 		return "nothing";
 	}
+	
 
 	@Test
 	public void restfulTest() throws Exception {
@@ -74,8 +77,7 @@ public class JerseyRestTest {
 		Server server = new Server(8080);
 		server.setHandler(root);
 		
-		
-
+	
 		
 		server.start();
 
