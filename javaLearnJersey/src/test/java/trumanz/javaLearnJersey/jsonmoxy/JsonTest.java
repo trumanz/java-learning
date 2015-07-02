@@ -23,9 +23,9 @@ import org.junit.Assert;
 import org.junit.Test;
 
 @Path("test")
-public class JsonTest extends JerseyTest {
+public class JsonTest extends MyJeseryTestBase {
 
-	@XmlRootElement
+
 	static class TestBean {
 		public int id;
 		public String name;
@@ -50,30 +50,7 @@ public class JsonTest extends JerseyTest {
 		}
 	}
 
-	@Override
-	protected Application configure() {
-		enable(TestProperties.LOG_TRAFFIC);
-		enable(TestProperties.DUMP_ENTITY);
-
-		MoxyJsonConfig moxyJsonConfig = new MoxyJsonConfig();
-		Map<String, String> namespacePrefixMapper = new HashMap<String, String>(1);
-		namespacePrefixMapper.put("http://www.w3.org/2001/XMLSchema-instance", "xsi");
-		moxyJsonConfig.setNamespacePrefixMapper(namespacePrefixMapper).setNamespaceSeparator(':');
-
-		return new ResourceConfig().packages(this.getClass().getPackage().getName())
-				.register(moxyJsonConfig.resolver());
-	}
-
-	@Override
-	protected void configureClient(ClientConfig config) {
-		MoxyJsonConfig moxyJsonConfig = new MoxyJsonConfig();
-		Map<String, String> namespacePrefixMapper = new HashMap<String, String>(1);
-		namespacePrefixMapper.put("http://www.w3.org/2001/XMLSchema-instance", "xsi");
-		moxyJsonConfig.setNamespacePrefixMapper(namespacePrefixMapper).setNamespaceSeparator(':');
-
-		config.register(moxyJsonConfig.resolver());
-	}
-
+	
 	//static!!!, This object will be create on each request.
 	private static TestBean myBean = new TestBean();
 	@POST
