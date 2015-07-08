@@ -12,10 +12,11 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 public class JacksonObjectMapperTest {
 
-	private ObjectMapper  objMapper = new ObjectMapper();
+	private ObjectMapper  objMapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);;
 	private JsonFactory  jsonFactory = new JsonFactory();
 	private Logger logger = Logger.getLogger(this.getClass());
 	
