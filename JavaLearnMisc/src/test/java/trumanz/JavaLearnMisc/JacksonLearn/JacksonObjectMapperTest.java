@@ -85,5 +85,29 @@ public class JacksonObjectMapperTest {
 	}
 	
 
+	static public class TestBean2{
+		public  int id;
+		public TestBean  beans;
+		
+		public  TestBean2(){
+			id = 1;
+			beans = new TestBean();
+		}
+		
+	}
+	
+	@Test
+	public void NestedJsonWriteTest() throws IOException{
+		
+		TestBean2 bean = new TestBean2();
+		String json = objMapper.writeValueAsString(bean);
+		logger.info(json);
+		
+		 JsonNode jsonNode = objMapper.readTree(json);
+		 Assert.assertEquals(1, jsonNode.findValue("id").asInt());
+
+		 
+	}
+	
 	
 }
