@@ -90,6 +90,30 @@ public class HQLTest {
 		}
 	}
 	
+	@Test
+	public void UPDATE_TEST(){
+		String hql = "UPDATE Employee set salary = :salary "  + 
+	             "WHERE id = :employee_id";
+		
+		
+		Integer  id = this.addEmployee("Zara", "Ali", 1000);
+	
+		
+		Query query = session.createQuery(hql);
+		query.setParameter("salary", 5000);
+		query.setParameter("employee_id", id.intValue());
+		
+		int updatedCount = query.executeUpdate();
+		
+		Assert.assertEquals(1, updatedCount);
+		
+		
+		Employee employee = (Employee) session.get(Employee.class, id);
+		
+		Assert.assertEquals(5000, employee.getSalary());
+		
+
+	}
 	
 	
 	
@@ -102,11 +126,14 @@ public class HQLTest {
 		Employee empolyee = new Employee(fname, lname, salary);
 		employeeID = (Integer) session.save(empolyee);
 		tx.commit();
-
+	
 		session.close();
 
 		return employeeID;
 	}
+	
+	
+	
 
 	public void listEmployees() {
 		Session session = factory.openSession();
