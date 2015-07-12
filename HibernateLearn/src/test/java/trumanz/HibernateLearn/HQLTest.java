@@ -19,6 +19,7 @@ import org.junit.Test;
 public class HQLTest {
 	private SessionFactory factory = new Configuration().configure().buildSessionFactory();
 	private static Logger logger = Logger.getLogger(HQLTest.class);
+	//TODO, session resource leak
 	private Session session = factory.openSession();
 
 	@Before
