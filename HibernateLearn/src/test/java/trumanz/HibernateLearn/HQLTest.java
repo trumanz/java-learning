@@ -24,7 +24,7 @@ public class HQLTest {
 	@Before
 	public void clearTable() {
 		this.deleteAllEmployee();
-		logger.info("this called");
+		logger.info("this called, clear the table");
 	}
 
 	@Test
@@ -84,14 +84,16 @@ public class HQLTest {
 		
 		for(Object obj : query.list()){
 		
-			logger.info(obj.getClass().toString());
-			logger.info(obj.toString());
-			
+			//logger.info(obj.getClass().toString());
+			//logger.info(obj.toString());
+	
 		}
 	}
 	
 	@Test
 	public void UPDATE_TEST(){
+		
+		logger.info("enter");
 		String hql = "UPDATE Employee set salary = :salary "  + 
 	             "WHERE id = :employee_id";
 		
@@ -103,7 +105,10 @@ public class HQLTest {
 		query.setParameter("salary", 5000);
 		query.setParameter("employee_id", id.intValue());
 		
+		
+		
 		int updatedCount = query.executeUpdate();
+		
 		
 		Assert.assertEquals(1, updatedCount);
 		
