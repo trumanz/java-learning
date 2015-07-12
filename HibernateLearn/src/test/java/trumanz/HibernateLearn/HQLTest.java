@@ -82,6 +82,7 @@ public class HQLTest {
 		this.addEmployee("Zara", "Ali", 1000);
 		this.addEmployee("Zara2", "Ali", 1000);
 		
+		
 		for(Object obj : query.list()){
 		
 			//logger.info(obj.getClass().toString());
@@ -98,6 +99,7 @@ public class HQLTest {
 	             "WHERE id = :employee_id";
 		
 		
+		
 		Integer  id = this.addEmployee("Zara", "Ali", 1000);
 	
 		
@@ -105,15 +107,18 @@ public class HQLTest {
 		query.setParameter("salary", 5000);
 		query.setParameter("employee_id", id.intValue());
 		
-		
+
+		Transaction tx =  session.beginTransaction();
 		
 		int updatedCount = query.executeUpdate();
-		
-		
+		tx.commit();
+				
 		Assert.assertEquals(1, updatedCount);
 		
 		
 		Employee employee = (Employee) session.get(Employee.class, id);
+		
+
 		
 		Assert.assertEquals(5000, employee.getSalary());
 		
@@ -176,9 +181,7 @@ public class HQLTest {
 		Session session = factory.openSession();
 		Transaction tx = null;
 		tx = session.beginTransaction();
-
 		session.createQuery("DELETE FROM  Employee ").executeUpdate();
-
 		tx.commit();
 		session.close();
 	}
