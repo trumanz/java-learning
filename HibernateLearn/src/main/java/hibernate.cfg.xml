@@ -11,14 +11,18 @@
 			com.mysql.jdbc.Driver
 		</property>
 		<property name="hibernate.connection.url">
-		jdbc:mysql://146.11.25.28/test
+			jdbc:mysql://146.11.25.28/test
 		</property>
 		<property name="hibernate.connection.username">
-		root
+			root
 		</property>
 		<property name="hibernate.connection.password">
-		root
+			root
 		</property>
-		<mapping resource="Employee.hbm.xml"/>
+		<property name="hibernate.jdbc.batch_size">
+			50
+		</property>
+
+		<mapping resource="Employee.hbm.xml" />
 	</session-factory>
 </hibernate-configuration>
