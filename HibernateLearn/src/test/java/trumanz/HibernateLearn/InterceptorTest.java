@@ -37,6 +37,7 @@ public class InterceptorTest {
 
 	@AfterClass
 	public static void closeSession() {
+	
 		Transaction tx = session.beginTransaction();
 		session.createQuery("DELETE FROM  Employee").executeUpdate();
 		tx.commit();
@@ -49,14 +50,18 @@ public class InterceptorTest {
 	@Test
 	public void createCountTest() {
 
-		@SuppressWarnings("serial")
-		Session session = factory.openSession(new EmptyInterceptor() {
+		SessionFactory factory = new Configuration().configure().setInterceptor(new EmptyInterceptor() {
+			
+			private static final long serialVersionUID = 1L;
+
 			public boolean onSave(Object entity, Serializable id, Object[] state, String[] propertyNames,
 					Type[] types) {
 				count++;
 				return true;
 			}
-		});
+		}).buildSessionFactory();
+		
+		Session session = factory.openSession();
 
 		Transaction tx = session.beginTransaction();
 		for (int i = 0; i < 10; i++) {
