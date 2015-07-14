@@ -21,13 +21,14 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class CriteriaTest  {
-	private static SessionFactory factory = new Configuration().configure().buildSessionFactory();
+	
 	private static Logger logger = Logger.getLogger(HQLTest.class);
 	private static Session session = null;
 	
 	
 	@BeforeClass
 	public static void openSession(){
+		SessionFactory factory = new Configuration().configure().buildSessionFactory();
 		session = factory.openSession();
 		
 		Transaction tx = session.beginTransaction();

@@ -58,7 +58,7 @@ public class ManageEmployee {
 		Session session =  factory.openSession();
 
 		@SuppressWarnings("rawtypes")
-		List  employees = session.createQuery("FROM Employee").list();
+		List  employees = session.createQuery("FROM EmployeeWithXmlMap").list();
 		for(Object obj : employees){
 			logger.info(obj.toString());
 		}
@@ -91,7 +91,7 @@ public class ManageEmployee {
 		Transaction tx = null;
 		tx = session.beginTransaction();
 		
-		session.createQuery("DELETE FROM  Employee ").executeUpdate();
+		session.createQuery("DELETE FROM  EmployeeWithXmlMap ").executeUpdate();
 		
 	
 		tx.commit();

@@ -17,14 +17,10 @@ import trumanz.HibernateLearn.EmployeeWithXmlMap;
 
 public class EntityManagerTest {
 
-	@Entity
-	static public class TestBean{
-		@Id
-		public int id;
-		public String name;
-	}
 	
-	//@Test
+	
+	
+	@Test
 	public void test() {
 	
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("testUnit");
