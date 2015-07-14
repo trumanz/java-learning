@@ -7,20 +7,20 @@ services: mysql
 
 before_script:
    - mysql -e 'create database test;'
-   - mysql -e 'CREATE TABLE test.EMPLOYEEWithXmlMap(
-      `id` int(11) NOT NULL AUTO_INCREMENT,
-      `first_name` varchar(20) DEFAULT NULL,
-      `last_name` varchar(20) DEFAULT NULL,
-      n`salary` int(11) DEFAULT NULL,
-       PRIMARY KEY (`id`)
-      ) ;'
-   - mysql -e 'CREATE TABLE test.EMPLOYEEWithAnnotation(
-      `id` int(11) NOT NULL AUTO_INCREMENT,
-      `first_name` varchar(20) DEFAULT NULL,
-      `last_name` varchar(20) DEFAULT NULL,
-      `salary` int(11) DEFAULT NULL,
-       PRIMARY KEY (`id`)
-      ) ;'
+   - mysql -e "CREATE TABLE test.EMPLOYEEWithXmlMap(
+      id int(11) NOT NULL AUTO_INCREMENT,
+      first_name varchar(20) DEFAULT NULL,
+       last_name varchar(20) DEFAULT NULL,
+       salary int(11) DEFAULT NULL,
+       PRIMARY KEY (id)
+      ) ;"
+   - mysql -e "CREATE TABLE test.EMPLOYEEWithAnnotation(
+      id int(11) NOT NULL AUTO_INCREMENT,
+      first_name varchar(20) DEFAULT NULL,
+      last_name varchar(20) DEFAULT NULL,
+      salary int(11) DEFAULT NULL,
+       PRIMARY KEY (id)
+      ) ;"
    - echo "USE mysql;\n UPDATE user SET password=PASSWORD('root') WHERE user='root';\nFLUSH PRIVILEGES;\n" | mysql -u root
 
 
