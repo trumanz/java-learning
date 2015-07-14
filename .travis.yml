@@ -1,4 +1,4 @@
 language: java
 jdk:
    - oraclejdk7
-script: cd EmployeeWithXmlMap && mvn test
+script: cd HibernateLearn && mvn test
