@@ -11,7 +11,7 @@
 			com.mysql.jdbc.Driver
 		</property>
 		<property name="hibernate.connection.url">
-			jdbc:mysql://146.11.25.28/test
+			jdbc:mysql://127.0.0.1/test
 		</property>
 		<property name="hibernate.connection.username">
 			root

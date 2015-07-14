@@ -1,4 +1,5 @@
 language: java
 jdk:
    - oraclejdk7
+services: mysql
 script: cd HibernateLearn && mvn test
