@@ -6,6 +6,7 @@ jdk:
 services: mysql
 
 before_script:
+   - echo "USE mysql;\n UPDATE user SET password=PASSWORD('password') WHERE user='root';\nFLUSH PRIVILEGES;\n" | mysql -u root
    - mysql -e 'create database test;'
 
 
