@@ -24,7 +24,7 @@ public class EntityManagerTest {
 		public String name;
 	}
 	
-	@Test
+	//@Test
 	public void test() {
 	
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("testUnit");
