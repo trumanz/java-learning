@@ -48,7 +48,7 @@ public class BatchTest  {
 
 		Transaction tx = session.beginTransaction();
 		for(int i=0; i < 200; i++){
-			 session.save(new Employee("b", "B", 2000));
+			 session.save(new EmployeeWithXmlMap("b", "B", 2000));
 			 	if(i%50==0){
 			 		session.flush();
 			 		session.clear();
@@ -57,7 +57,7 @@ public class BatchTest  {
 		}
 		tx.commit();
 		
-		Criteria cr = session.createCriteria(Employee.class);
+		Criteria cr = session.createCriteria(EmployeeWithXmlMap.class);
 		cr.setProjection(Projections.rowCount());
 		Assert.assertEquals(new Long(200),cr.list().get(0));
 		
@@ -67,7 +67,7 @@ public class BatchTest  {
 		
 		int count = 0;
 		while(employeeCursor.next()){
-			Employee employee = (Employee)employeeCursor.get(0);
+			EmployeeWithXmlMap employee = (EmployeeWithXmlMap)employeeCursor.get(0);
 			employee.setSalary(23000);
 			session.update(employee);
 			if(++count%50==0){

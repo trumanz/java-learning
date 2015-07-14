@@ -33,13 +33,13 @@ public class NativeSQLTest  {
 		session = factory.openSession();
 		
 		Transaction tx = session.beginTransaction();
-		Integer aemployeeID = (Integer) session.save(new Employee("a", "A", 1000));
-		Integer bemployeeID = (Integer) session.save(new Employee("b", "B", 2000));
-		Integer cemployeeID = (Integer) session.save(new Employee("c", "C", 3000));
+		Integer aemployeeID = (Integer) session.save(new EmployeeWithXmlMap("a", "A", 1000));
+		Integer bemployeeID = (Integer) session.save(new EmployeeWithXmlMap("b", "B", 2000));
+		Integer cemployeeID = (Integer) session.save(new EmployeeWithXmlMap("c", "C", 3000));
 		
-		session.save(new Employee("d", "D", 4000));
-		session.save(new Employee("e", "E", 5000));
-		session.save(new Employee("f", "F", 6000));
+		session.save(new EmployeeWithXmlMap("d", "D", 4000));
+		session.save(new EmployeeWithXmlMap("e", "E", 5000));
+		session.save(new EmployeeWithXmlMap("f", "F", 6000));
 		
 		tx.commit();
 		
@@ -70,11 +70,11 @@ public class NativeSQLTest  {
 	public void entityQueryTest(){
 		String sql = "SELECT * FROM EMPLOYEE";
 		SQLQuery query = session.createSQLQuery(sql);
-		query.addEntity(Employee.class);
+		query.addEntity(EmployeeWithXmlMap.class);
 		@SuppressWarnings("rawtypes")
 		List results = query.list();
 		Assert.assertEquals(6, results.size());
-		Assert.assertEquals("a",((Employee)results.get(0)).getFirstName());	
+		Assert.assertEquals("a",((EmployeeWithXmlMap)results.get(0)).getFirstName());	
 	}
 	
 	@Test
@@ -82,10 +82,10 @@ public class NativeSQLTest  {
 		String sql = "SELECT * FROM EMPLOYEE WHERE salary = :salary";
 		SQLQuery query = session.createSQLQuery(sql);
 		query.setParameter("salary", 2000);
-		query.addEntity(Employee.class);
+		query.addEntity(EmployeeWithXmlMap.class);
 		@SuppressWarnings("rawtypes")
 		List results = query.list();
 		Assert.assertEquals(1, results.size());
-		Assert.assertEquals("b",((Employee)results.get(0)).getFirstName());	
+		Assert.assertEquals("b",((EmployeeWithXmlMap)results.get(0)).getFirstName());	
 	}
 }

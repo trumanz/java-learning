@@ -5,7 +5,7 @@
 
 <hibernate-mapping>
 
-	<class name="trumanz.HibernateLearn.Employee" table="EMPLOYEE">
+	<class name="trumanz.HibernateLearn.EmployeeWithXmlMap" table="EmployeeWithXmlMap">
 		<meta attribute="class-description">
 			This class contains the employee detail.
 		</meta>

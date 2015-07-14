@@ -3,14 +3,14 @@ package trumanz.HibernateLearn;
 /*
  * the ORM information indicated by Employee.hbm.xml
  */
-public class Employee {
+public class EmployeeWithXmlMap {
 	private int id;
 	private String firstName;
 	private String lastName;
 	private int salary;
 	
-	public Employee(){}
-	public Employee(String fname, String lname, int salary){
+	public EmployeeWithXmlMap(){}
+	public EmployeeWithXmlMap(String fname, String lname, int salary){
 		this.setFirstName(fname);
 		this.setLastName(lname);
 		this.setSalary(salary);

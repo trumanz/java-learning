@@ -65,7 +65,7 @@ public class InterceptorTest {
 
 		Transaction tx = session.beginTransaction();
 		for (int i = 0; i < 10; i++) {
-			session.save(new Employee("b", "B", 2000));
+			session.save(new EmployeeWithXmlMap("b", "B", 2000));
 		}
 		tx.commit();
 		

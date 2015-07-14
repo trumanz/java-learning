@@ -45,7 +45,7 @@ public class ManageEmployee {
 		Transaction tx = null;
 		Integer employeeID = null;
 		tx = session.beginTransaction();
-		Employee empolyee = new Employee(fname, lname, salary);
+		EmployeeWithXmlMap empolyee = new EmployeeWithXmlMap(fname, lname, salary);
 		employeeID = (Integer) session.save(empolyee);
 		tx.commit();
 
@@ -69,7 +69,7 @@ public class ManageEmployee {
 		Session session =  factory.openSession();
 		Transaction tx = null;
 		tx = session.beginTransaction();
-		Employee employee = (Employee)session.get(Employee.class, EmployeeID);
+		EmployeeWithXmlMap employee = (EmployeeWithXmlMap)session.get(EmployeeWithXmlMap.class, EmployeeID);
 		employee.setSalary(salary);
 		session.update(employee);
 		tx.commit();
@@ -80,7 +80,7 @@ public class ManageEmployee {
 		Session session =  factory.openSession();
 		Transaction tx = null;
 		tx = session.beginTransaction();
-		Employee employee = (Employee)session.get(Employee.class, EmployeeID);
+		EmployeeWithXmlMap employee = (EmployeeWithXmlMap)session.get(EmployeeWithXmlMap.class, EmployeeID);
 		session.delete(employee);
 		tx.commit();
 		session.close();

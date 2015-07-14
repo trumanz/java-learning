@@ -39,7 +39,7 @@ public class HQLTest {
 		List results = query.list();
 		Assert.assertEquals(1, results.size());
 		
-		Employee e = (Employee) results.get(0);
+		EmployeeWithXmlMap e = (EmployeeWithXmlMap) results.get(0);
 		Assert.assertEquals("Zara", e.getFirstName());
 		Assert.assertEquals("Ali", e.getLastName());
 		Assert.assertEquals(1000, e.getSalary());
@@ -69,7 +69,7 @@ public class HQLTest {
 		List results = query.list();
 		Assert.assertEquals(1, results.size());
 		
-		Employee e = (Employee) results.get(0);
+		EmployeeWithXmlMap e = (EmployeeWithXmlMap) results.get(0);
 		Assert.assertEquals("Zara", e.getFirstName());
 		Assert.assertEquals("Ali", e.getLastName());
 		Assert.assertEquals(1000, e.getSalary());
@@ -117,7 +117,7 @@ public class HQLTest {
 		Assert.assertEquals(1, updatedCount);
 		
 		
-		Employee employee = (Employee) session.get(Employee.class, id);
+		EmployeeWithXmlMap employee = (EmployeeWithXmlMap) session.get(EmployeeWithXmlMap.class, id);
 		
 
 		
@@ -134,7 +134,7 @@ public class HQLTest {
 		Transaction tx = null;
 		Integer employeeID = null;
 		tx = session.beginTransaction();
-		Employee empolyee = new Employee(fname, lname, salary);
+		EmployeeWithXmlMap empolyee = new EmployeeWithXmlMap(fname, lname, salary);
 		employeeID = (Integer) session.save(empolyee);
 		tx.commit();
 	
@@ -161,7 +161,7 @@ public class HQLTest {
 		Session session = factory.openSession();
 		Transaction tx = null;
 		tx = session.beginTransaction();
-		Employee employee = (Employee) session.get(Employee.class, EmployeeID);
+		EmployeeWithXmlMap employee = (EmployeeWithXmlMap) session.get(EmployeeWithXmlMap.class, EmployeeID);
 		employee.setSalary(salary);
 		session.update(employee);
 		tx.commit();
@@ -172,7 +172,7 @@ public class HQLTest {
 		Session session = factory.openSession();
 		Transaction tx = null;
 		tx = session.beginTransaction();
-		Employee employee = (Employee) session.get(Employee.class, EmployeeID);
+		EmployeeWithXmlMap employee = (EmployeeWithXmlMap) session.get(EmployeeWithXmlMap.class, EmployeeID);
 		session.delete(employee);
 		tx.commit();
 		session.close();

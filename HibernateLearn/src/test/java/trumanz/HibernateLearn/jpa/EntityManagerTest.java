@@ -12,7 +12,7 @@ import javax.persistence.Persistence;
 import org.hibernate.cfg.Configuration;
 import org.junit.Test;
 
-import trumanz.HibernateLearn.Employee;
+import trumanz.HibernateLearn.EmployeeWithXmlMap;
 
 
 public class EntityManagerTest {

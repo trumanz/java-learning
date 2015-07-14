@@ -23,6 +23,6 @@
 			50
 		</property>
 
-		<mapping resource="Employee.hbm.xml" />
+		<mapping resource="EmployeeWithXmlMap.hbm.xml" />
 	</session-factory>
 </hibernate-configuration>
