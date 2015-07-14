@@ -4,7 +4,7 @@
 
 	<persistence-unit name="testUnit" transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-		<class>trumanz.HibernateLearn.jpa.TestBean</class>
+		<class>trumanz.HibernateLearn.jpa.EntityManagerTest$TestBean</class>
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://146.11.25.28:3306/test" />
