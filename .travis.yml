@@ -1,5 +1,12 @@
 language: java
+
 jdk:
    - oraclejdk7
+
 services: mysql
+
+before_script:
+   - mysql -e 'create database test;'
+
+
 script: cd HibernateLearn && mvn test
