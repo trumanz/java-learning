@@ -31,13 +31,15 @@ public class BatchTest  {
 	public static void openSession(){
 		session = factory.openSession();
 		
-	
+		Transaction tx = session.beginTransaction();
+		session.createQuery("DELETE FROM  EmployeeWithXmlMap").executeUpdate();
+		tx.commit();
 		
 	}
 	@AfterClass
 	public  static void closeSession(){
 		Transaction tx = session.beginTransaction();
-		session.createQuery("DELETE FROM  Employee").executeUpdate();
+		session.createQuery("DELETE FROM  EmployeeWithXmlMap").executeUpdate();
 		tx.commit();
 		session.close();
 		session = null;
@@ -62,8 +64,8 @@ public class BatchTest  {
 		Assert.assertEquals(new Long(200),cr.list().get(0));
 		
 		
-		tx.begin();
-		ScrollableResults employeeCursor  = session.createQuery("FROM EMPLOYEE").scroll();
+		tx  = session.beginTransaction();
+		ScrollableResults employeeCursor  = session.createQuery("FROM EmployeeWithXmlMap").scroll();
 		
 		int count = 0;
 		while(employeeCursor.next()){

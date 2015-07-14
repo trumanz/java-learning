@@ -45,7 +45,7 @@ public class CriteriaTest  {
 	@AfterClass
 	public  static void closeSession(){
 		Transaction tx = session.beginTransaction();
-		session.createQuery("DELETE FROM  Employee").executeUpdate();
+		session.createQuery("DELETE FROM  EmployeeWithXmlMap").executeUpdate();
 		tx.commit();
 		session.close();
 		session = null;
