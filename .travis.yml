@@ -24,4 +24,4 @@ before_script:
    - echo "USE mysql;\n UPDATE user SET password=PASSWORD('root') WHERE user='root';\nFLUSH PRIVILEGES;\n" | mysql -u root
 
 
-script: cd HibernateLearn && mvn test
+script: cd  JavaLearnDB && mvn test
