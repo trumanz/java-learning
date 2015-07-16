@@ -14,8 +14,7 @@
 		<!-- update -->
 		<property name="hibernate.hbm2ddl.auto">update</property>
 
-		
-
+	
 		<mapping resource="EmployeeWithXmlMap.hbm.xml" />
 	</session-factory>
 </hibernate-configuration>

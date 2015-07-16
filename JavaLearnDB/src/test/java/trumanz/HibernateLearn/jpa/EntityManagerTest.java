@@ -60,7 +60,7 @@ public class EntityManagerTest {
 	public void CRUD_TEST() {
 	
 	
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("testUnit");
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("testUnit4jpa");
 		
 		EntityManager em = emf.createEntityManager();
 		
