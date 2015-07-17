@@ -17,9 +17,9 @@ import trumanz.HibernateLearn.jpa.entities.Department;
 import trumanz.HibernateLearn.jpa.entities.Employee;
 import trumanz.HibernateLearn.jpa.entities.Project;
 
-public class ORMTest {
+public class ORMForeignKeyTest {
 	
-	static Logger logger = Logger.getLogger(ORMTest.class);
+	static Logger logger = Logger.getLogger(ORMForeignKeyTest.class);
 
 	@BeforeClass
 	public static void reCreateTable(){
