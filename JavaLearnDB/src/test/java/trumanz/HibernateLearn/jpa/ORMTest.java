@@ -98,4 +98,47 @@ public class ORMTest {
 		
 		entityManager.close();
 	}
+	
+	
+	@Test
+	public void deleteForeignKey()
+	{
+		//Employee must belong to one exist Department
+		
+		EntityManager entityManager  = emf.createEntityManager();
+		Department department = null;
+		Employee employee = null;
+		
+		
+		//1. create department and then create employee, successful
+		entityManager.getTransaction().begin();
+		department = new Department("IT");
+		employee = new Employee("trumanz", 20000,  department);
+		entityManager.persist(department);
+		entityManager.persist(employee);
+		entityManager.getTransaction().commit();
+		
+		entityManager.getTransaction().begin();
+		//2. delete the department
+		department = entityManager.find(Department.class, department.getName());
+		entityManager.remove(department);
+		boolean catched = false;
+		try{
+			
+			entityManager.getTransaction().commit();
+		}catch(Exception e){
+			logger.info(e.getClass());
+			//entityManager.getTransaction().rollback();
+			catched = true;
+		}
+		Assert.assertTrue(catched);
+		
+		
+		Employee e2 =  new Employee("trumanz", 20000,  department);
+		e2.setId(employee.getId());
+		Assert.assertEquals(employee, e2);
+				
+		entityManager.close();
+	}
+	
 }
