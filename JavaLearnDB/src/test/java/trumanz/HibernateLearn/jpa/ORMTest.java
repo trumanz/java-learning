@@ -103,7 +103,6 @@ public class ORMTest {
 	@Test
 	public void deleteForeignKey()
 	{
-		//Employee must belong to one exist Department
 		
 		EntityManager entityManager  = emf.createEntityManager();
 		Department department = null;
@@ -119,7 +118,7 @@ public class ORMTest {
 		entityManager.getTransaction().commit();
 		
 		entityManager.getTransaction().begin();
-		//2. delete the department
+		//2. delete the department will got exception since employee has reference to it.
 		department = entityManager.find(Department.class, department.getName());
 		entityManager.remove(department);
 		boolean catched = false;
