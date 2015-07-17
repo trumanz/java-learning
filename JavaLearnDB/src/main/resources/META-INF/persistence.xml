@@ -7,11 +7,18 @@
 		transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 		<class>trumanz.HibernateLearn.jpa.EntityManagerTest$TestBean</class>
+		<class>trumanz.HibernateLearn.jpa.entities.Department</class>
+		<class>trumanz.HibernateLearn.jpa.entities.Employee</class>
+		<class>trumanz.HibernateLearn.jpa.entities.Project</class>
+
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://127.0.0.1:3306/test" />
 			<property name="javax.persistence.jdbc.user" value="root" />
 			<property name="javax.persistence.jdbc.password" value="root" />
+
+			<!-- recreate the table if exists -->
+			<property name="hibernate.hbm2ddl.auto" value="create" />
 		</properties>
 	</persistence-unit>
 
@@ -25,9 +32,9 @@
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://127.0.0.1:3306/test" />
 			<property name="javax.persistence.jdbc.user" value="root" />
 			<property name="javax.persistence.jdbc.password" value="root" />
-			
+
 			<!-- recreate the table if exists -->
-			<property name="hibernate.hbm2ddl.auto" value="create"/>
+			<property name="hibernate.hbm2ddl.auto" value="create" />
 
 		</properties>
 	</persistence-unit>
