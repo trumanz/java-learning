@@ -92,7 +92,7 @@ public class EntityManagerTest {
 		Assert.assertFalse(e3.getFirstName().equals(name));
 		
 		logger.info("e3:" + e3.toString());
-
+		logger.info("e3:" + e3.getClass().toString());
 	
 		//they are all pointer to  same object
 		Assert.assertTrue(e1 == e2);
