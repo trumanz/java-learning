@@ -29,6 +29,7 @@ public class WebService {
 		try {
 			logger.info("start");
 			server.start();
+			server.join();
 			logger.info("after start");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
