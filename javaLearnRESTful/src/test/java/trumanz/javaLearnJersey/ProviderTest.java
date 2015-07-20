@@ -73,7 +73,7 @@ public class ProviderTest implements MessageBodyReader<Object>, MessageBodyWrite
 	
 	
 	@Test
-	void testProvider(){
+	public void testProvider(){
 		
 	}
 
