@@ -58,7 +58,7 @@ public class OneWebAppWithJspTest {
 		Assert.assertEquals(200, response.getStatus());
 	
 		
-		server.stop();
+		//server.stop();
 		server.join();
 		
 	}
