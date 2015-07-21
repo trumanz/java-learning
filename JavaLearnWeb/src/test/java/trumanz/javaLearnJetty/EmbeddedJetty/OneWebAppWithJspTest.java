@@ -3,15 +3,18 @@ package trumanz.javaLearnJetty.EmbeddedJetty;
 import java.io.File;
 import java.lang.management.ManagementFactory;
 
+import org.eclipse.jetty.client.HttpClient;
+import org.eclipse.jetty.client.api.Response;
 import org.eclipse.jetty.jmx.MBeanContainer;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.webapp.Configuration;
 import org.eclipse.jetty.webapp.WebAppContext;
+import org.junit.Assert;
 import org.junit.Test;
 
 public class OneWebAppWithJspTest {
 
-	public static void startServer() throws Exception {
+	public static Server startServerWithWar(String warFilePath) throws Exception {
 		Server server = new Server(8080);
 
 		// setup JMX
@@ -21,7 +24,7 @@ public class OneWebAppWithJspTest {
 		// set war
 		WebAppContext webapp = new WebAppContext();
 		webapp.setContextPath("/");
-		webapp.setWar(new File("/home/truman/tmp/simple/target/simple.war").getAbsolutePath());
+		webapp.setWar(new File(warFilePath).getAbsolutePath());
 
 
 		// set up the jsp container
@@ -38,12 +41,26 @@ public class OneWebAppWithJspTest {
 		server.setHandler(webapp);
 
 		server.start();
-		server.join();
+	
+		return server;
 	}
 
 	@Test
 	public void test() throws Exception {
-		OneWebAppWithJspTest.startServer();
+		Server server = OneWebAppWithJspTest.
+				startServerWithWar("/home/truman/git/java-learning/JavaLearnWeb/JavaLearnWebJSP/target/JavaLearnWebJSP.war");
+		
+		HttpClient client = new HttpClient();
+		client.start();
+		
+		Response response = client.GET("http://localhost:8080");
+		
+		Assert.assertEquals(200, response.getStatus());
+	
+		
+		server.stop();
+		server.join();
+		
 	}
 
 }
