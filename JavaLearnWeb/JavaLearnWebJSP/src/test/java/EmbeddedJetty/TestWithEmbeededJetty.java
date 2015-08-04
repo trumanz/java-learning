@@ -68,7 +68,7 @@ public class TestWithEmbeededJetty {
 	
 	
 	private static void stopJetty() throws Exception{	
-		//server.stop();
+		server.stop();
 		server.join();
 	}
 
@@ -103,8 +103,7 @@ public class TestWithEmbeededJetty {
 		System.out.println("get1=" + driver.findElement(By.name("addCookieName")).getText());
 		
 	
-		
-		//driver.quit();
+		driver.quit();
 	}
 
 
