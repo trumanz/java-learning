@@ -74,7 +74,6 @@ public class TestWithEmbeededJetty {
 
 	
 	
-	
 	@Test
 	public void getTest() throws Exception {
 		
