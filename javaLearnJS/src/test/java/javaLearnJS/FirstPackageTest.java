@@ -82,7 +82,7 @@ public class FirstPackageTest {
 
 	@AfterClass
 	public static void tearDown() throws Exception {
-		// Thread.sleep(100*1000);
+		 Thread.sleep(300*1000);
 		logger.info("server stop");
 		server.stop();
 		server.join();
