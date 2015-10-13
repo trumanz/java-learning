@@ -3,6 +3,9 @@ package javaLearnJS;
 
 
 import java.io.File;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 
@@ -21,6 +24,10 @@ import org.eclipse.jetty.server.handler.ContextHandlerCollection;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.webapp.WebAppContext;
+import org.glassfish.jersey.jackson.JacksonFeature;
+import org.glassfish.jersey.moxy.json.MoxyJsonConfig;
+import org.glassfish.jersey.server.ResourceConfig;
+import org.glassfish.jersey.server.ServerProperties;
 import org.hamcrest.CoreMatchers;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -41,7 +48,22 @@ public class FirstPackageTest {
 	public String getContent() {
 		return "StringforTest--5454872487542467873524";
 	}
-
+	
+	@GET
+	@Path("/perf")
+	@Produces(MediaType.APPLICATION_JSON)
+	
+	public List<PerformanceData> xdummyPerfData()
+	{
+		return PerformanceData.GetDummyDatasForTest();
+	}
+	public List<PerfCount>  dummyPerfData()
+	{
+		List<PerfCount> pcs  = new LinkedList<PerfCount>();
+		pcs.add(new PerfCount(new Date(), 100.123));
+		pcs.add(new PerfCount(new Date(), 288.123));
+		return pcs;
+	}
 	@BeforeClass
 	public static void setUP() throws Exception {
 		System.setProperty("org.apache.jasper.compiler.disablejsr199", "true");
@@ -63,16 +85,25 @@ public class FirstPackageTest {
 		// server.setHandler(jsp);
 		c.addHandler(jsp);
 
-		// 2.
-		ServletContextHandler restContext = new ServletContextHandler(ServletContextHandler.SESSIONS);
-		restContext.setContextPath("/api");
-		ServletHolder servletHolder = restContext.addServlet(org.glassfish.jersey.servlet.ServletContainer.class, "/*");
+		// 2. set Restful
+		final ResourceConfig  application = new ResourceConfig()
+				.packages(FirstPackageTest.class.getPackage().getName())
+				.register(MyObjectMapperProvider.class)
+				.register(JacksonFeature.class);
 
-		servletHolder.setInitOrder(0);
-		servletHolder.setInitParameter("jersey.config.server.provider.classnames",
-				FirstPackageTest.class.getCanonicalName());
 		
-		c.addHandler(restContext);
+		ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
+		context.setContextPath("/api");
+		// ServletHolder sh = new ServletHolder(org.glassfish.jersey.servlet.ServletContainer.class);
+		//ServletHolder sh  = context.addServlet(org.glassfish.jersey.servlet.ServletContainer.class,"/*");
+		 
+		 ServletHolder shJersey = new ServletHolder(new org.glassfish.jersey.servlet.ServletContainer(application));
+		 shJersey.setInitOrder(0);
+		 context.addServlet(shJersey, "/*");
+		 
+	 
+		 
+		c.addHandler(context);
 
 		server.setHandler(c);
 
@@ -82,7 +113,7 @@ public class FirstPackageTest {
 
 	@AfterClass
 	public static void tearDown() throws Exception {
-		 Thread.sleep(300*1000);
+		// Thread.sleep(300*1000);
 		logger.info("server stop");
 		server.stop();
 		server.join();
@@ -111,6 +142,16 @@ public class FirstPackageTest {
 
 		Assert.assertEquals(200, response.getStatus());
 		Assert.assertEquals("StringforTest--5454872487542467873524", response.readEntity(String.class));
+	}
+	
+	@Test
+	public void testJSON() throws Exception {
+		Client client = ClientBuilder.newClient();
+		Response response = client.target("http://localhost:8080/api/perf").request().get(Response.class);
+		logger.info(response.readEntity(String.class));
+		Assert.assertEquals(200, response.getStatus());
+		
+		
 	}
 
 }
