@@ -17,7 +17,7 @@ public class PerformanceData {
 	
 	public static List<PerformanceData> GetDummyDatasForTest(){
 		 List<PerformanceData>  pds = new LinkedList<PerformanceData>();
-		for(char c = 'a' ; c <= 'c'; c++){
+		for(char c = 'a' ; c < 'a' + 3; c++){
 			PerformanceData pd =  GetDummyDataForTest(String.valueOf(c));	
 			pds.add(pd);
 		}
@@ -27,7 +27,7 @@ public class PerformanceData {
 	public static PerformanceData GetDummyDataForTest(String vm_name){
 		long msNow = new Date().getTime();
 		Random random = new Random();
-		long count = 3;
+		long count = 60;
 		long interval = 5;
 		List<PerfCount> cpu_count_list = new LinkedList<PerfCount>();
 		for(int i = 0; i < count; i++){

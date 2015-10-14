@@ -55,6 +55,7 @@ public class FirstPackageTest {
 	
 	public List<PerformanceData> xdummyPerfData()
 	{
+		logger.info("called!!!!!!!");
 		return PerformanceData.GetDummyDatasForTest();
 	}
 	public List<PerfCount>  dummyPerfData()
@@ -113,14 +114,14 @@ public class FirstPackageTest {
 
 	@AfterClass
 	public static void tearDown() throws Exception {
-		// Thread.sleep(300*1000);
+		Thread.sleep(3000*1000);
 		logger.info("server stop");
 		server.stop();
 		server.join();
 		logger.info("server stopped");
 	}
 
-	@Test
+	//@Test
 	public void testJSPHello() throws Exception {
 		HttpClient client = new HttpClient();
 		client.start();
@@ -135,7 +136,7 @@ public class FirstPackageTest {
 
 	}
 
-	@Test
+	//@Test
 	public void testRestful() throws Exception {
 		Client client = ClientBuilder.newClient();
 		Response response = client.target("http://localhost:8080/api").request().get(Response.class);

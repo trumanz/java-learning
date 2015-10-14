@@ -2,8 +2,8 @@
 
 
 <head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
-</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
 <script>
 	function myFunction() {
 		document.getElementById("demo").innerHTML = "Paragraph changed.";
@@ -28,12 +28,18 @@
 
 		})
 		
+	  
+		  
 	});
 </script>
 </head>
 
 
 <body>
+
+
+<a href="D3.1.html">D3.1</a>
+<a href="perf.html">perf</a>
 
 	<h2>HeaderForTest-57216571327567421</h2>
 	

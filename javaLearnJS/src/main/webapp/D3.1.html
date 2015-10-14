@@ -1,0 +1,43 @@
+<html>
+
+
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+<script>
+
+
+	$(document).ready(function() {
+		
+		
+		  var death_rate = [['yuenan',24.26],['aluba',17.48],['guandao',10.01],['aomen',5.84]];
+		  var div_data_bind = d3.select("body").selectAll("div").data(death_rate);
+		  div_set = div_data_bind.enter().append("div");
+		  div_data_bind.exit().remove();
+		  div_set.text(function(d,i) {
+		    return i + " / " + d[0];
+		  });
+		  div_set.style("height", "20px");
+		  div_set.style("background", "red");
+		  div_set.style("margin", "5px");
+		  div_set.style("width", function(d,i) {
+		    return (d[1] * 10)+"px";
+		  });
+		  
+		  
+		  
+	});
+</script>
+</head>
+
+
+<body>
+
+
+
+
+	
+
+</body>
+
+</html>

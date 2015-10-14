@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript"
+	src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+<script>
+	$(document).ready(function() {
+
+		$.getJSON("api/perf", function(perfDataArray) {
+			console.log(JSON.stringify(perfDataArray));
+			console.log("type of data : " + typeof perfDataArray, +", " + perfDataArray.toString());
+			var items = []
+			$.each(perfDataArray, function(i, perfData) {
+				
+				//console.log("type of items : " + typeof item);
+				//console.log("item.toString() : " + item.toString());
+				console.log("perfData.vm_name : " + perfData.vm_name)
+				$("<h2>" + perfData.vm_name + "</h2>").appendTo("body");
+				
+				$.each(perfData.cpu_count_list, function(i, cpu_count){
+					console.log("    timeStamp: " + cpu_count.timeStamp);
+					console.log("    value    : " + cpu_count.value);
+					items.push("<li id='" + cpu_count.timeStamp + "'>" + cpu_count.value + "</li>");
+				});
+				$("<ul/>", {
+					"class" : "my-new-list",
+					html : items.join("")
+				}).appendTo("body");
+			});
+
+			
+			//$("#p1").text(data)
+		}).fail(function(){
+			console.log("error");
+		})
+
+	});
+</script>
+</head>
+<body>
+	<p id="p1">Loading</p>
+</body>
+</html>
