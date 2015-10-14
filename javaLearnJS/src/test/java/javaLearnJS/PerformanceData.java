@@ -7,13 +7,14 @@ import java.util.Random;
 
 public class PerformanceData {
 	
-	public PerformanceData(String vm_name, List<PerfCount> cpu_count_list){
+	public PerformanceData(String vm_name, List<PerfCount> count_list){
 		this.vm_name = vm_name;
-		this.cpu_count_list = cpu_count_list;
+		this.count_list = count_list;
 	}
 	
 	public String vm_name;
-	public List<PerfCount> cpu_count_list;
+	public List<PerfCount> count_list;
+	
 	
 	public static List<PerformanceData> GetDummyDatasForTest(){
 		 List<PerformanceData>  pds = new LinkedList<PerformanceData>();
@@ -27,17 +28,20 @@ public class PerformanceData {
 	public static PerformanceData GetDummyDataForTest(String vm_name){
 		long msNow = new Date().getTime();
 		Random random = new Random();
-		long count = 60;
+		long count = 100;
 		long interval = 5;
-		List<PerfCount> cpu_count_list = new LinkedList<PerfCount>();
+		List<PerfCount> count_list = new LinkedList<PerfCount>();
+		Double v0 = (double) (Math.abs(random.nextInt())%70);
 		for(int i = 0; i < count; i++){
 			Date d = new Date(msNow + (count - i)*interval);
-			Double v = random.nextDouble();
-			PerfCount pc = new PerfCount(d, v);
-			cpu_count_list.add(pc);
+			
+			Double v1 = (double) (Math.abs(random.nextInt())%10) + v0;
+			Double v2 = (double) (Math.abs(random.nextInt())%10) + v0;
+			PerfCount pc = new PerfCount(d,v1, v2);
+			count_list.add(pc);
 		}
 		
-		return new PerformanceData(vm_name, cpu_count_list);
+		return new PerformanceData(vm_name, count_list);
 		
 	}
 	

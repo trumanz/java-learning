@@ -1,47 +1,142 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script type="text/javascript"
-	src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
-<script>
-	$(document).ready(function() {
+<meta charset="utf-8">
+<style>
 
-		$.getJSON("api/perf", function(perfDataArray) {
-			console.log(JSON.stringify(perfDataArray));
-			console.log("type of data : " + typeof perfDataArray, +", " + perfDataArray.toString());
-			var items = []
-			$.each(perfDataArray, function(i, perfData) {
-				
-				//console.log("type of items : " + typeof item);
-				//console.log("item.toString() : " + item.toString());
-				console.log("perfData.vm_name : " + perfData.vm_name)
-				$("<h2>" + perfData.vm_name + "</h2>").appendTo("body");
-				
-				$.each(perfData.cpu_count_list, function(i, cpu_count){
-					console.log("    timeStamp: " + cpu_count.timeStamp);
-					console.log("    value    : " + cpu_count.value);
-					items.push("<li id='" + cpu_count.timeStamp + "'>" + cpu_count.value + "</li>");
-				});
-				$("<ul/>", {
-					"class" : "my-new-list",
-					html : items.join("")
-				}).appendTo("body");
-			});
+body {
+  font: 10px sans-serif;
+}
 
-			
-			//$("#p1").text(data)
-		}).fail(function(){
-			console.log("error");
-		})
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
 
-	});
-</script>
-</head>
+.bar {
+  fill: steelblue;
+}
+
+.x.axis path {
+  display: none;
+}
+
+</style>
 <body>
-	<p id="p1">Loading</p>
-</body>
-</html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+<script>
+
+var margin = {top: 20, right: 20, bottom: 30, left: 40},
+    width = 960 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+
+var x = d3.scale.ordinal()
+    .rangeRoundBands([0, width], .1);
+
+var y = d3.scale.linear()
+    .rangeRound([height, 0]);
+
+var color = d3.scale.ordinal()
+    .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
+
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom");
+
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient("left")
+    .tickFormat(d3.format(".2s"));
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+d3.json("api/perf", function(error, data) {
+  if (error) throw error;
+  
+  data[0].vm_name
+  
+  console.log(JSON.stringify(data))
+  
+  console.log("data[0].vm_name:" + data[0].vm_name);
+  console.log("data[0].count_list:" + data[0].count_list[0]);
+  console.log("data[0].count_list.keys: " + Object.keys(data[0].count_list[0]).filter(function(key){return key !== "timeStamp"}) )
+
+  //color.domain(d3.keys(data[0]).filter(function(key) { return key !== "State"; }));
+  color.domain(Object.keys(data[0].count_list[0]).filter(function(key){return key !== "timeStamp"}));
+
+  data = data[0].count_list
+  data.forEach(function(d) {
+    var y0 = 0;
+    console.info(d)
+    d.ages = color.domain().map(function(name) { return {name: name, y0: y0, y1: y0 += +d[name]}; });
+    d.total = d.ages[d.ages.length - 1].y1;
+   
+    console.info(d)
+ 
+  });
+
+  data.sort(function(a, b) { return b.timeStamp - a.timeStamp; });
+
+  x.domain(data.map(function(d) { return d.timeStamp; }));
+  y.domain([0, d3.max(data, function(d) { return d.total; })]);
+
+ 
+  svg.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis);
+  
+  
+
+  svg.append("g")
+      .attr("class", "y axis")
+      .call(yAxis)
+    .append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 6)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .text("Resource");
+
+ 
+  
+  var state = svg.selectAll(".state")
+      .data(data)
+    .enter().append("g")
+      .attr("class", "g")
+      .attr("transform", function(d) { console.log(d.timeStamp + "," + x(d.timeStamp)); return   "translate(" + x(d.timeStamp) + ",0)"; });
+ 
+  state.selectAll("rect")
+      .data(function(d) { return d.ages; })
+    .enter().append("rect")
+      .attr("width", x.rangeBand())
+      .attr("y", function(d) { return y(d.y1); })
+      .attr("height", function(d) { return y(d.y0)-y(d.y1); })
+      .style("fill", function(d) { return color(d.name); });
+
+  var legend = svg.selectAll(".legend")
+      .data(color.domain().slice().reverse())
+    .enter().append("g")
+      .attr("class", "legend")
+      .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
+  legend.append("rect")
+      .attr("x", width - 18)
+      .attr("width", 18)
+      .attr("height", 18)
+      .style("fill", color);
+
+  legend.append("text")
+      .attr("x", width - 24)
+      .attr("y", 9)
+      .attr("dy", ".35em")
+      .style("text-anchor", "end")
+      .text(function(d) { return d; });
+
+});
+
+</script>

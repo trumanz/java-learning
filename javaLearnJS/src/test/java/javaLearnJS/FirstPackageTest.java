@@ -58,13 +58,7 @@ public class FirstPackageTest {
 		logger.info("called!!!!!!!");
 		return PerformanceData.GetDummyDatasForTest();
 	}
-	public List<PerfCount>  dummyPerfData()
-	{
-		List<PerfCount> pcs  = new LinkedList<PerfCount>();
-		pcs.add(new PerfCount(new Date(), 100.123));
-		pcs.add(new PerfCount(new Date(), 288.123));
-		return pcs;
-	}
+	
 	@BeforeClass
 	public static void setUP() throws Exception {
 		System.setProperty("org.apache.jasper.compiler.disablejsr199", "true");
