@@ -18,7 +18,7 @@ public class PerformanceData {
 	
 	public static List<PerformanceData> GetDummyDatasForTest(){
 		 List<PerformanceData>  pds = new LinkedList<PerformanceData>();
-		for(char c = 'a' ; c < 'a' + 3; c++){
+		for(char c = 'a' ; c < 'a' + 50; c++){
 			PerformanceData pd =  GetDummyDataForTest(String.valueOf(c));	
 			pds.add(pd);
 		}
