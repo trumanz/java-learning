@@ -18,6 +18,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Persistence;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.persistence.criteria.CriteriaQuery;
 
 import org.apache.log4j.Logger;
@@ -88,7 +89,7 @@ public class ORMTest {
 	}
 
 	@Entity
-	@Table(name = "AirtportTrans", indexes = { @Index(name = "countrIndex", columnList = "country") })
+	@Table(indexes = { @Index(name = "countrIndex", columnList = "country") })
 	public static class Position {
 		@Id
 		public Integer id = 0;
@@ -109,6 +110,7 @@ public class ORMTest {
 	}
 
 	@Entity
+	@Table(uniqueConstraints = @UniqueConstraint(columnNames = { "positionAID", "positionBID" }) )
 	public static class Cost {
 
 		public Cost(Position a, Position b, Integer cost) {
@@ -236,25 +238,41 @@ public class ORMTest {
 	}
 
 	@Test
-	public void tesePerf1() {
+	public void testUniqueContraint() {
+
+		boolean constraintViolationExceptionCatched = false;
+
 		Transaction trx = null;
-		int count = 1000;
-		for (int i = 0; i < count; i++) {
+		Position a = new Position(0);
+		Position b = new Position(1);
+		Position c = new Position(2);
+
+		trx = session.beginTransaction();
+		session.save(a);
+		session.save(b);
+		session.save(c);
+		trx.commit();
+
+		trx = session.beginTransaction();
+		session.save(new Cost(a, b, 100));
+		session.save(new Cost(a, c, 100));
+		session.save(new Cost(b, c, 100));
+		session.save(new Cost(b, a, 100));
+		trx.commit();
+
+		
+		try {
 			trx = session.beginTransaction();
-			session.save(new Position(i));
+			session.save(new Cost(a, b, 100));
+			trx.commit();
+		} catch (org.hibernate.exception.ConstraintViolationException e) {
+			constraintViolationExceptionCatched = true;
+			trx.rollback();
 			trx.commit();
 		}
-	}
 
-	@Test
-	public void tesePerf2() {
-		Transaction trx = null;
-		int count = 1000;
-		trx = session.beginTransaction();
-		for (int i = 0; i < count; i++) {
-			session.save(new Position(i));
-		}
-		trx.commit();
+		Assert.assertTrue(constraintViolationExceptionCatched);
+		
+	
 	}
-
 }
