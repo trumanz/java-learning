@@ -7,6 +7,7 @@ import java.util.Properties;
 import java.util.Random;
 import java.util.Set;
 
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -40,7 +41,6 @@ public class ORMTest {
 
 	private Session session = null;
 	private SessionFactory sessionFactory = null;
-	private EntityManager entityManager = null;
 	private static Logger logger = Logger.getLogger(ORMTest.class);
 
 	private static Set<Class<?>> getAllEntityClass() {
@@ -88,6 +88,16 @@ public class ORMTest {
 		logger.info("Session closed");
 	}
 
+	
+	public static class Attribute{
+		public String code;
+		public String vendor;
+		public Attribute(){
+			this.code = "dummyCode";
+			this.vendor = "dummyVendor";
+		}
+	}
+	
 	@Entity
 	@Table(indexes = { @Index(name = "countrIndex", columnList = "country") })
 	public static class Position {
@@ -95,6 +105,8 @@ public class ORMTest {
 		public Integer id = 0;
 		public String country;
 		public String city;
+		@Embedded
+		public Attribute attr = new Attribute();
 
 		public Position(Integer id, String country, String city) {
 			this.id = id;
@@ -268,7 +280,7 @@ public class ORMTest {
 		} catch (org.hibernate.exception.ConstraintViolationException e) {
 			constraintViolationExceptionCatched = true;
 			trx.rollback();
-			trx.commit();
+			
 		}
 
 		Assert.assertTrue(constraintViolationExceptionCatched);
