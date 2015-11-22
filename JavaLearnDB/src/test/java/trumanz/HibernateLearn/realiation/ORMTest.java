@@ -98,9 +98,14 @@ public class ORMTest {
 		}
 	}
 	
+	public static class Coords{
+		public int x = 0;
+		public int y  = 2;
+	}
+	
 	@Entity
 	@Table(indexes = { @Index(name = "countrIndex", columnList = "country") })
-	public static class Position {
+	public static class Position extends Coords {
 		@Id
 		public Integer id = 0;
 		public String country;
@@ -158,6 +163,16 @@ public class ORMTest {
 			trx = session.beginTransaction();
 			session.save(new Position(1));
 			trx.commit();
+			
+			Criteria criteria = session.createCriteria(Position.class);
+			criteria.add(Restrictions.eq("id", 1));
+
+			Assert.assertEquals(1, criteria.list().size());
+			
+			Position p = (Position)criteria.list().get(0);
+			Assert.assertEquals(0, p.x);
+			Assert.assertEquals(2, p.x);
+			
 		} catch (org.hibernate.NonUniqueObjectException e) {
 			nonUniqueObjectExceptionCatched = true;
 			trx.rollback();

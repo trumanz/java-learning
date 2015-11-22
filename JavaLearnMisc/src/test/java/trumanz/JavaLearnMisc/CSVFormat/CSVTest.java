@@ -42,8 +42,13 @@ public class CSVTest {
 		
 	}
 	
-	@JsonPropertyOrder({ "id", "aName", })
-	public static class CSVLine {
+	public static class Father {
+		public String fId  = "Fid";
+		public String fName = "FName";
+	}
+	
+	@JsonPropertyOrder({ "fId", "fName", "id", "atrribute", "aName", })
+	public static class CSVLine  extends Father {
 		@JsonProperty("id")
 		public int xid;
 		public String aName;
@@ -78,7 +83,7 @@ public class CSVTest {
 		CSVLine csvObj = new CSVLine(1, "truman", 2, "china");
 		String line = this.genericFormatToString(csvObj);
 		System.out.println(line);
-		Assert.assertEquals("1,truman,china,2\n", line);
+		Assert.assertEquals("Fid,FName,1,china,2,truman\n", line);
 		
 		
 		CSVLine csvObj2 = genericFormatFromString(line, CSVLine.class);
