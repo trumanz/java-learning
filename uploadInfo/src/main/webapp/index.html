@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>jQuery.post demo</title>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $("#submit").click(function(){
+	  
+	  var accountInfoJSON = "{";
+	  
+	  $('#accountinput').find('input').each(function(){
+			console.log($(this).attr("name") + "=" + $(this).val());
+			if($(this).val().length <=0){
+				alert("please fill all filed, use NULL if your current email is empty");
+				return false;
+			}
+			if(accountInfoJSON.length > 1){
+				accountInfoJSON = accountInfoJSON + ","
+			}	
+			accountInfoJSON = accountInfoJSON + '"' + $(this).attr("name") + '":"' + $(this).val() + '"';
+			
+		})
+		
+		accountInfoJSON = accountInfoJSON + "}";
+		
+	  console.log(accountInfoJSON);
+	  
+	  var request = $.ajax({
+			url : "gerritaccount/api/accountinfo",
+			method : "POST",
+			contentType : "application/json; charset=utf-8",
+			data : accountInfoJSON ,
+			dataType : "json",
+			
+		});
+	  
+	    request.success(function(data) {
+			console.log("done" + JSON.stringify(data));
+			$( "#result" ).empty().append("<p>" + JSON.stringify(data) + "</p>");
+			alert(JSON.stringify(data));
+		});
+	    
+	    request.error(function(jqxHR) {
+			alert("err" + JSON.stringify(jqxHR));
+		});
+	    
+	   
+	   
+		
+  });
+});
+</script>
+
+
+</head>
+<body>
+	<div id="accountinput">
+	<table >
+		<tr>
+		    <td>Account ID  </td> 
+		    <td> <input type="text" name="accountID"> </td>  
+		</tr>
+		<tr>
+			 <td>Current Username </td>      
+             <td> <input type="text" name="currentUsername"></td>  
+		</tr>
+		<tr>
+		    <td>Current Email Address</td>
+			<td> <input type="text" name="currentEmail"> </td>
+		</tr>
+		<tr>
+			<td>emcID</td> 
+			<td>  <input type="text" name="emcID"> </td>
+		</tr>
+		<tr>
+			<td>emcEmail</td> 
+		     <td>  <input type="text" name="emcEmail"></td>
+		</tr>
+	 </table>
+	 <button id="submit">submit</button>
+	</div>
+	
+	<!-- the result of the search will be rendered inside this div -->
+	<div id="result"></div>
+
+</body>
+</html>

@@ -2,21 +2,17 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>trumanz</groupId>
-	<artifactId>javaLearnJS</artifactId>
+	<artifactId>uploadInfo</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>javaLearnJS Maven Webapp</name>
+	<name>uploadInfo Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<jettyVersion>9.0.2.v20130417</jettyVersion>
 		<jerseyVersion>2.18</jerseyVersion>
 	</properties>
-
-
-
 	<dependencies>
-
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
@@ -89,10 +85,40 @@
 			<version>2.22.1</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>4.3.8.Final</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>4.3.8.Final</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>javassist</groupId>
+			<artifactId>javassist</artifactId>
+			<version>3.12.0.GA</version>
+		</dependency>
+
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.35</version>
+		</dependency>
+		
+		
+		     <dependency>
+         <groupId>org.reflections</groupId>
+         <artifactId>reflections</artifactId>
+         <version>0.9.9-RC1</version>
+     </dependency>
 
 	</dependencies>
-
 	<build>
-		<finalName>javaLearnJS</finalName>
+		<finalName>uploadInfo</finalName>
 	</build>
 </project>

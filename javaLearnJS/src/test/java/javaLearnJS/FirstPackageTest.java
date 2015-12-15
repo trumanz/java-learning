@@ -96,8 +96,7 @@ public class FirstPackageTest {
 		 shJersey.setInitOrder(0);
 		 context.addServlet(shJersey, "/*");
 		 
-	 
-		 
+	
 		c.addHandler(context);
 
 		server.setHandler(c);
