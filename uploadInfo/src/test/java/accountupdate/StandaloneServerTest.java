@@ -40,7 +40,7 @@ public class StandaloneServerTest {
 		System.setProperty("org.apache.jasper.compiler.disablejsr199", "true");
 
 		WebAppContext jsp = new WebAppContext();
-		jsp.setContextPath("/");
+		jsp.setContextPath("/uploadInfo");
 		jsp.setWar(new File("./src/main/webapp").getAbsolutePath());
 
 		jsp.setAttribute("org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern",
@@ -55,11 +55,11 @@ public class StandaloneServerTest {
 				.register(MyObjectMapperProvider.class).register(JacksonFeature.class);
 
 		ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
-		context.setContextPath("/gerritaccount");
+		context.setContextPath("/uploadInfo");
 
 		ServletHolder shJersey = new ServletHolder(new org.glassfish.jersey.servlet.ServletContainer(application));
 		shJersey.setInitOrder(0);
-		context.addServlet(shJersey, "/*");
+		context.addServlet(shJersey, "/api/*");
 
 		c.addHandler(context);
 	}
@@ -78,7 +78,7 @@ public class StandaloneServerTest {
 
 	@AfterClass
 	public static void tearDown() throws Exception {
-		//Thread.sleep(3000 * 1000);
+		Thread.sleep(3000 * 1000);
 		logger.info("server stopping");
 		server.stop();
 		server.join();
@@ -93,7 +93,7 @@ public class StandaloneServerTest {
 				new AccountUpdateInfoEntity("111", "currName", "currentEmail", "emcID", "emcEmail"),
 				MediaType.APPLICATION_JSON_TYPE);
 
-		Response response = client.target("http://localhost:8080/gerritaccount/api/accountinfo")
+		Response response = client.target("http://localhost:8080/api/accountinfo")
 				.request(MediaType.APPLICATION_JSON_TYPE).post(reqEntity);
 
 		logger.info(response.readEntity(String.class));
@@ -106,7 +106,7 @@ public class StandaloneServerTest {
 
 		ExecutorService executorService = Executors.newCachedThreadPool();
 
-		for (int i = 0; i < 20; i++) {
+		for (int i = 0; i < 0; i++) {
 
 			executorService.submit(new Runnable() {
 
@@ -119,7 +119,7 @@ public class StandaloneServerTest {
 								new AccountUpdateInfoEntity(String.valueOf(i), "currName" + i, "currentEmail" + i, "emcID" + i, "emcEmail" + i),
 								MediaType.APPLICATION_JSON_TYPE);
 
-						Response response = client.target("http://localhost:8080/gerritaccount/api/accountinfo")
+						Response response = client.target("http://localhost:8080/api/accountinfo")
 								.request(MediaType.APPLICATION_JSON_TYPE).post(reqEntity);
 
 						logger.info(response.readEntity(String.class));

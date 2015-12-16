@@ -9,6 +9,10 @@
 $(document).ready(function(){
   $("#submit").click(function(){
 	  
+	  $('#accountinput').find('#submit').each(function(){
+		  $(this).hide();
+	  })
+	  
 	  var accountInfoJSON = "{";
 	  
 	  $('#accountinput').find('input').each(function(){
@@ -29,7 +33,7 @@ $(document).ready(function(){
 	  console.log(accountInfoJSON);
 	  
 	  var request = $.ajax({
-			url : "gerritaccount/api/accountinfo",
+			url : "/uploadInfo/api/accountinfo",
 			method : "POST",
 			contentType : "application/json; charset=utf-8",
 			data : accountInfoJSON ,
