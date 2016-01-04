@@ -85,7 +85,7 @@ public class StandaloneServerTest {
 		logger.info("server stopped");
 	}
 
-	@Test
+	//@Test
 	public void testJSON() throws Exception {
 		Client client = ClientBuilder.newClient();
 
@@ -101,7 +101,7 @@ public class StandaloneServerTest {
 
 	}
 
-	@Test
+	//@Test
 	public void concurrencyTest() throws Exception {
 
 		ExecutorService executorService = Executors.newCachedThreadPool();

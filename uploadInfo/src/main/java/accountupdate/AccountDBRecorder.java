@@ -1,6 +1,7 @@
 package accountupdate;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 
@@ -30,16 +31,7 @@ public class AccountDBRecorder {
 	synchronized
 	public static String update(AccountUpdateInfoEntity accountInfo) {
 
-		Criteria cr = session.createCriteria(AccountUpdateInfoEntity.class);
-		cr.add(Restrictions.eq("accountID", accountInfo.accountID));
-		
-		boolean update = false;
-		
-		if( cr.list().size() == 1){
-			logger.info("update");
-			update = true;
-		}
-		
+	
 		try{
 		     session.beginTransaction();
 		     session.saveOrUpdate(session.merge(accountInfo));
@@ -55,6 +47,12 @@ public class AccountDBRecorder {
 		
 		return "Success";
 
+	}
+	@SuppressWarnings("unchecked")
+	synchronized
+	public static List<AccountUpdateInfoEntity> getAllAccount() {
+		Criteria cr = session.createCriteria(AccountUpdateInfoEntity.class);
+		return  (List<AccountUpdateInfoEntity>)cr.list();
 	}
 
 	private static Session createMysqlSession() {
@@ -93,5 +91,7 @@ public class AccountDBRecorder {
 		Reflections reflections = new Reflections(AccountUpdateInfoEntity.class.getCanonicalName());
 		return reflections.getTypesAnnotatedWith(Entity.class);
 	}
+	
+	
 
 }

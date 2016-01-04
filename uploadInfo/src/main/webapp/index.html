@@ -2,13 +2,16 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>jQuery.post demo</title>
+<title>Gerrit Account Infromation</title>
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-
+<script src="account.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-  $("#submit").click(function(){
-	  
+
+  writeAllData( "#alldata" )
+ 
+
+  $("#submit").click(function(){  
 	  $('#accountinput').find('#submit').each(function(){
 		  $(this).hide();
 	  })
@@ -45,6 +48,7 @@ $(document).ready(function(){
 			console.log("done" + JSON.stringify(data));
 			$( "#result" ).empty().append("<p>" + JSON.stringify(data) + "</p>");
 			alert(JSON.stringify(data));
+			writeAllData();
 		});
 	    
 	    request.error(function(jqxHR) {
@@ -60,35 +64,73 @@ $(document).ready(function(){
 
 
 </head>
+
+<style>
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+</style>
+
 <body>
 	<div id="accountinput">
+	
+	
+	
 	<table >
+		<tr>
+		    <td>
+<table >
+         <tr>
+		    <td>Current Gerrit Settings</td> 
+		</tr>
+		<tr>
+			 <td>Username</td>      
+             <td> <input type="text" name="currentUsername"></td>  
+		</tr>
+		<tr>
+		    <td>Email Address</td>
+			<td> <input type="text" name="currentEmail"> </td>
+		</tr>
 		<tr>
 		    <td>Account ID  </td> 
 		    <td> <input type="text" name="accountID"> </td>  
 		</tr>
-		<tr>
-			 <td>Current Username </td>      
-             <td> <input type="text" name="currentUsername"></td>  
+	
+	 </table>
+		    
+		    </td> 
+		    <td>
+		    <table>
+		 <tr>
+		    <td>EMC AD Account</td> 
 		</tr>
 		<tr>
-		    <td>Current Email Address</td>
-			<td> <input type="text" name="currentEmail"> </td>
-		</tr>
-		<tr>
-			<td>emcID</td> 
+			<td>EMC User Name</td> 
 			<td>  <input type="text" name="emcID"> </td>
 		</tr>
 		<tr>
-			<td>emcEmail</td> 
+			<td>EMC Email Address</td> 
 		     <td>  <input type="text" name="emcEmail"></td>
 		</tr>
+	
 	 </table>
+		    </td>  
+		</tr>
+
+	 </table>
+	
+
 	 <button id="submit">submit</button>
 	</div>
 	
 	<!-- the result of the search will be rendered inside this div -->
 	<div id="result"></div>
+	
+	<br/>
+	<br/>
+	<p>All Records</p>
+	<div id="alldata"></div>
 
 </body>
 </html>

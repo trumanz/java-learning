@@ -1,4 +1,4 @@
-package trumanz.JavaLearnMisc.InjectLearn;
+package dependencyInjection.guice;
 
 import java.io.IOException;
 
@@ -17,6 +17,12 @@ import com.google.inject.Provider;
 import com.google.inject.Provides;
 import com.google.inject.name.Named;
 import com.google.inject.name.Names;
+
+import trumanz.JavaLearnMisc.InjectLearn.Animal;
+import trumanz.JavaLearnMisc.InjectLearn.AnimalDog;
+import trumanz.JavaLearnMisc.InjectLearn.Plant;
+import trumanz.JavaLearnMisc.InjectLearn.PlantTree;
+import trumanz.JavaLearnMisc.InjectLearn.TestRunnable;
 
 /**
  * Unit test for simple App.

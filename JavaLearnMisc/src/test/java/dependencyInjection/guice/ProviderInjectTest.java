@@ -1,4 +1,4 @@
-package trumanz.JavaLearnMisc.InjectLearn;
+package dependencyInjection.guice;
 
 import org.junit.Assert;
 import org.junit.Test;
