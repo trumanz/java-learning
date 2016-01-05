@@ -7,6 +7,15 @@ import org.junit.Test;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
+import trumanz.Misc.InjectLearn.Motivation.BillingInjModule;
+import trumanz.Misc.InjectLearn.Motivation.BillingService;
+import trumanz.Misc.InjectLearn.Motivation.CreditCard;
+import trumanz.Misc.InjectLearn.Motivation.CreditCardProcessorFactory;
+import trumanz.Misc.InjectLearn.Motivation.PaypalCreditCardProcessor;
+import trumanz.Misc.InjectLearn.Motivation.PizzaOrder;
+import trumanz.Misc.InjectLearn.Motivation.RealBillingService;
+import trumanz.Misc.InjectLearn.Motivation.Receipt;
+
 public class RealBillingServiceTest {
 	
 	private final PizzaOrder order = new PizzaOrder(100);

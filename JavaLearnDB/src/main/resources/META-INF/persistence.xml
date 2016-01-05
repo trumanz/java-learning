@@ -6,19 +6,30 @@
 	<persistence-unit name="testUnit4jpa"
 		transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-		<class>trumanz.HibernateLearn.jpa.EntityManagerTest$TestBean</class>
-		<class>trumanz.HibernateLearn.jpa.entities.Department</class>
-		<class>trumanz.HibernateLearn.jpa.entities.Employee</class>
-		<class>trumanz.HibernateLearn.jpa.entities.Project</class>
+		<class>trumanz.JPA.EntityManagerTest$TestBean</class>
+	
 
 		<properties>
+		    <!--
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://127.0.0.1:3306/test" />
 			<property name="javax.persistence.jdbc.user" value="root" />
 			<property name="javax.persistence.jdbc.password" value="root" />
-
-			<!-- recreate the table if exists -->
-			<property name="hibernate.hbm2ddl.auto" value="create" />
+			
+			-->
+			
+			  <!-- H2 -->
+			  <property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:test" />
+			<property name="javax.persistence.jdbc.user" value="sa" />
+			<property name="javax.persistence.jdbc.password" value="" />
+			 <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
+ 
+			<!-- recreate the table if exists 
+			<property name="hibernate.hbm2ddl.auto" value="create" />-->
+			
+			<property name="javax.persistence.schema-generation.database.action" value="create" />
+			 <property name="show_sql" value="true"/>
 		</properties>
 	</persistence-unit>
 
@@ -28,11 +39,12 @@
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 		<class>trumanz.JTA.JpaTestEntity</class>
 		<properties>
+		      
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://127.0.0.1:3306/test" />
 			<property name="javax.persistence.jdbc.user" value="root" />
 			<property name="javax.persistence.jdbc.password" value="root" />
-
+			 
 			<!-- recreate the table if exists -->
 			<property name="hibernate.hbm2ddl.auto" value="create" />
 
