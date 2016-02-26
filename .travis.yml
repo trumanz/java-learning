@@ -22,7 +22,7 @@ before_script:
        PRIMARY KEY (id)
       ) ;"
    - echo "USE mysql;\n UPDATE user SET password=PASSWORD('root') WHERE user='root';\nFLUSH PRIVILEGES;\n" | mysql -u root
-   - cd JavaLearnDB && mvn  dependency:resolve
+   - cd JavaLearnDB && mvn  dependency:resolve && cd -
 
 script:
    - cd  JavaLearnDB && mvn test 
