@@ -35,7 +35,6 @@ public class ReentrantLockTest {
 	
 	
 	@Test
-	@Repeat(times = 200)
 	public void multThreadLockTest() throws InterruptedException, BrokenBarrierException{
 		
 		Thread thread = new Thread(){
