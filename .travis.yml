@@ -25,5 +25,5 @@ before_script:
    - sh -c "cd JavaLearnDB && mvn  dependency:resolve"
 
 script:
-   - cd  JavaLearnDB && mvn test 
-#   - cd JavaLearnMisc && mvn test
+   #- cd  JavaLearnDB && mvn test 
+   - cd JavaLearnMisc && mvn test

@@ -15,6 +15,8 @@ public class CloneTest implements Cloneable {
 	@Test
 	public void testCloneThis() throws CloneNotSupportedException{
 		
+		System.out.println(System.getProperty("ProgramFiles"));
+		
 		CloneTest t1 = new CloneTest();
 		CloneTest t2=  (CloneTest) t1.clone();
 		
