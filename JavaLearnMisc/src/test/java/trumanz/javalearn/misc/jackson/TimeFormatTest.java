@@ -1,4 +1,4 @@
-package trumanz.JavaLearnMisc.JsonFormat;
+package trumanz.javalearn.misc.jackson;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -11,7 +11,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 
 
-public class JsonTest {
+public class TimeFormatTest {
 
 	
 	public static class MyObj{

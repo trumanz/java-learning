@@ -1,4 +1,4 @@
-package trumanz.JavaLearnMisc.JacksonLearn;
+package trumanz.javalearn.misc.jackson;
 
 
 import java.io.IOException;

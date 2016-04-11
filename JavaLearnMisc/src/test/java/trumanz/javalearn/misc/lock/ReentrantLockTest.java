@@ -1,4 +1,4 @@
-package trumanz.JavaLearnMisc.Lock;
+package trumanz.javalearn.misc.lock;
 
 
 import java.util.concurrent.BrokenBarrierException;
@@ -13,7 +13,7 @@ import org.junit.Test;
 public class ReentrantLockTest {
 	
 	@Test
-	public void testLock(){
+	public void testLockHoldCount(){
 		ReentrantLock lock = new ReentrantLock();
 		
 		lock.lock();
@@ -25,19 +25,17 @@ public class ReentrantLockTest {
 		Assert.assertEquals(2, lock.getHoldCount());
 		lock.unlock();
 		lock.unlock();
-		
-		
-		
 		Assert.assertEquals(0, lock.getHoldCount());
 	}
 	
 	ReentrantLock glock = new ReentrantLock();
 	CyclicBarrier gbarrier = new CyclicBarrier(2);
-	
+ 	
 
 	
 	
 	@Test
+	@Repeat(times = 200)
 	public void multThreadLockTest() throws InterruptedException, BrokenBarrierException{
 		
 		Thread thread = new Thread(){
@@ -46,6 +44,15 @@ public class ReentrantLockTest {
 				glock.lock();
 				glock.lock();
 				try {
+					//System.out.println("Thread locked");
+					gbarrier.await();
+				} catch (Exception e) {
+					e.printStackTrace();
+				} 
+				//System.out.println("Thread unlocking");
+				//lable2
+				try {
+					//System.out.println("Thread locked");
 					gbarrier.await();
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -61,10 +68,12 @@ public class ReentrantLockTest {
 		};
 		
 		thread.start();
-		gbarrier.await();
+		gbarrier.await(); //wait  thread locked
 		Assert.assertFalse(glock.tryLock());
+		 
+		gbarrier.await();// let thread run again from lable2
+		gbarrier.await();//wait thread unlocked
 		
-		gbarrier.await();
 		Assert.assertTrue(glock.tryLock());
 		
 		
