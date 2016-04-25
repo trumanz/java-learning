@@ -1,4 +1,4 @@
-package trumanz.JavaLearnMisc.ConcurrencyTest;
+package javalearn.misc.concurrency;
 
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CancellationException;

@@ -1,4 +1,4 @@
-package trumanz.JavaLearnMisc.InjectLearn.Motivation;
+package javalearn.misc.inject.Motivation;
 
 import org.junit.Before;
 import org.junit.BeforeClass;

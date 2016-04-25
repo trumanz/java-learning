@@ -1,4 +1,4 @@
-package trumanz.javalearn.misc.lock;
+package javalearn.misc.lock;
 
 
 import java.util.concurrent.BrokenBarrierException;

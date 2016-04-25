@@ -1,4 +1,4 @@
-package trumanz.javalearn.misc.jackson;
+package javalearn.misc.jackson;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
