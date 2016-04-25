@@ -1,4 +1,4 @@
-package dependencyInjection.guice.bindings;
+package javalearn.misc.inject.guice.bindings;
 
 import java.io.IOException;
 
