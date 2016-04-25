@@ -1,4 +1,4 @@
-package javalearn.misc.inject.guice.bindings;
+package misc.inject.guice.bindings;
 
 import org.junit.Assert;
 import org.junit.Test;
