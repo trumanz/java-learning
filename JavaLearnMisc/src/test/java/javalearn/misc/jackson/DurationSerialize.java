@@ -14,11 +14,11 @@ public class DurationSerialize extends JsonSerializer<Duration> {
 	public void serialize(Duration value, JsonGenerator jgen, SerializerProvider arg2)
 			throws IOException, JsonProcessingException {
 		StringBuilder strBuilder = new StringBuilder();
-		strBuilder.append(value.toHours());
+		strBuilder.append(String.format("%02d",value.toHours()));
 		strBuilder.append(":");
-		strBuilder.append(value.toMinutes()%60);
+		strBuilder.append(String.format("%02d", value.toMinutes()%60));
 		strBuilder.append(":");
-		strBuilder.append(value.getSeconds()%60);
+		strBuilder.append(String.format("%02d",value.getSeconds()%60));
 		jgen.writeString(strBuilder.toString());
 	}
 	

@@ -26,7 +26,7 @@ public class TimeFormatTest {
 		// OffsetDateTime.parse("2007-12-03T10:15:30+01:00");
 		// @JsonDeserialize(using = DurationDeserialize.class)
 		// @JsonSerialize(using = DurationSerialize.class)
-		public Duration duration = Duration.ofMillis(10);
+		public Duration duration = Duration.ofHours(136).plusMinutes(21).plusSeconds(5);
 		// public Duration duration =
 		// Duration.ofMinutes(20).plusHours(2).plusDays(2).plusDays(20);
 		
