@@ -38,7 +38,7 @@ import org.eclipse.jetty.client.api.ContentResponse;
 import org.junit.AfterClass;
 import org.junit.Assert;
 
-@Path("/")
+//@Path("/")
 public class FirstPackageTest {
 	private static Server server = null;
 	private static Logger logger = Logger.getLogger(FirstPackageTest.class);
@@ -138,7 +138,7 @@ public class FirstPackageTest {
 		Assert.assertEquals("StringforTest--5454872487542467873524", response.readEntity(String.class));
 	}
 	
-	@Test
+	//@Test
 	public void testJSON() throws Exception {
 		Client client = ClientBuilder.newClient();
 		Response response = client.target("http://localhost:8080/api/perf").request().get(Response.class);

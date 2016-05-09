@@ -1,7 +1,7 @@
 /**
  * 
  */
-
+console.log("This is external js file");
 function testFun(){
 	console.log("This is external js file");
 }
