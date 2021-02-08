@@ -1,0 +1,9 @@
+jobs:
+  - job: "build"
+    pool:
+      vmImage: "ubuntu-20.04"
+    steps:
+      - script: ./prep-env.sh
+        displayName: 'pre install package'
+      - script: ./run-ci.sh
+        displayName: 'build package'
